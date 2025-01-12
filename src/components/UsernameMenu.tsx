@@ -16,7 +16,7 @@ const UsernameMenu = () => {
                 {user?.name}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-[150px]">
-                <DropdownMenuItem className="">
+                <DropdownMenuItem>
                     <Link to='/user-profile' className="flex justify-center font-bold hover:text-orange-500 py-1">
                         User Profile
                     </Link>
