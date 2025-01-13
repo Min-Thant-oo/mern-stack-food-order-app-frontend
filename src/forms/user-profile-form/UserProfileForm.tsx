@@ -15,28 +15,38 @@ import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
-  email: z.string().optional(),
-  name: z.string().min(1, "name is required"),
-  addressLine1: z.string().min(1, "Address Line 1 is required"),
-  city: z.string().min(1, "City is required"),
-  country: z.string().min(1, "Country is required"),
+    email: z.string().optional(),
+    name: z.string().min(1, "name is required"),
+    addressLine1: z.string()
+        .min(1, "address line 1 is required")
+        .min(3, "Address must be at least 3 characters"),
+    city: z.string().min(1, "City is required"),
+    country: z.string().min(1, "Country is required"),
 });
 
 export type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
-  onSave: (userProfileData: UserFormData) => void;
-  isLoading: boolean;
-  title?: string;
-  buttonText?: string;
+    onSave: (userProfileData: UserFormData) => void;
+    isLoading: boolean;
+    title?: string;
+    buttonText?: string;
 };
 
 const UserProfileForm = ({
-  onSave,
-  isLoading,
+    onSave,
+    isLoading,
 }: Props) => {
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+        email: "",
+        name: "",
+        addressLine1: "",
+        city: "",
+        country: ""
+    },
+    mode: "onTouched"
   });
 
   return (
