@@ -23,5 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
+.env
 
 uBMrQSalqhV5P2hF
