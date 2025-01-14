@@ -13,22 +13,32 @@ const UsernameMenu = () => {
 
     return (
         <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-            <DropdownMenuTrigger className="flex items-center px-3 font-bold hover:text-orange-500 gap-2">
+            <DropdownMenuTrigger className="flex items-center px-4 py-2 rounded-md transition-colors font-bold hover:text-orange-500 gap-2">
                 <CircleUserRound className="text-orange-500" />
-                {user?.name}
+                {user?.email}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-[150px]">
+            <DropdownMenuContent className="w-64 p-2">
                 <DropdownMenuItem onClick={() => setIsOpen(false)}>
-                    <Link to='/user-profile' className="flex justify-center font-bold hover:text-orange-500 py-1">
+                    <Link to='/manage-restaurant' className="flex font-bold hover:text-orange-500 px-4 py-2 hover:bg-orange-50 w-full">
+                        Manage Restaurant
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setIsOpen(false)}>
+                    <Link to='/user-profile' className="flex font-bold hover:text-orange-500 px-4 py-2 hover:bg-orange-50 w-full">
+                        User Profile
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setIsOpen(false)}>
+                    <Link to='/user-profile' className="flex font-bold hover:text-orange-500 px-4 py-2 hover:bg-orange-50 w-full">
                         User Profile
                     </Link>
                 </DropdownMenuItem>
 
-                <Separator />
+                <Separator className="my-2" />
 
                 <DropdownMenuItem className="flex flex-1 justify-center items-center pt-2 pb-1">
                     <Button 
-                        className=" font-bold bg-orange-500" 
+                        className=" w-full font-bold bg-orange-500 hover:bg-orange-600 transition-colors" 
                         onClick={() => logout({
                             logoutParams: {
                               returnTo: window.location.origin
