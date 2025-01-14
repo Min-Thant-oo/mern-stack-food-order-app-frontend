@@ -29,7 +29,12 @@ const UsernameMenu = () => {
                 <DropdownMenuItem className="flex flex-1 justify-center items-center pt-2 pb-1">
                     <Button 
                         className=" font-bold bg-orange-500" 
-                        onClick={() => logout()}
+                        onClick={() => logout({
+                            logoutParams: {
+                              returnTo: window.location.origin
+                            }
+                          })
+                        }
                     >
                         Log Out
                     </Button>
