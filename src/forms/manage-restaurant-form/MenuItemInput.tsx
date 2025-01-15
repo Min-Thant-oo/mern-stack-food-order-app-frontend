@@ -27,7 +27,7 @@ const MenuItemInput = ({ index, removeMenuItem }: Props) => {
                     <FormLabel className="flex items-center gap-1">
                         Name 
                     </FormLabel>
-                        <FormMessage />
+                    <FormMessage />
                     <FormControl>
                     <Input
                         {...field}
@@ -46,7 +46,7 @@ const MenuItemInput = ({ index, removeMenuItem }: Props) => {
                     <FormLabel className="flex items-center gap-1">
                         Price ($) 
                     </FormLabel>
-                        <FormMessage />
+                    <FormMessage />
                     <FormControl>
                         <Input {...field} placeholder="8.00" className="bg-white" />
                     </FormControl>

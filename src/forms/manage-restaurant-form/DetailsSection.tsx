@@ -16,7 +16,7 @@ const DetailsSection = () => {
         <div>
             <h2 className="text-2xl font-bold">Details</h2>
             <FormDescription>
-            Enter the details about your restaurant
+                Enter the details about your restaurant
             </FormDescription>
         </div>
         <FormField
@@ -26,7 +26,7 @@ const DetailsSection = () => {
             <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                <Input {...field} className="bg-white" />
+                    <Input {...field} className="bg-white" />
                 </FormControl>
                 <FormMessage />
             </FormItem>
@@ -38,11 +38,11 @@ const DetailsSection = () => {
             name="city"
             render={({ field }) => (
                 <FormItem className="flex-1">
-                <FormLabel>City</FormLabel>
-                <FormControl>
-                    <Input {...field} className="bg-white" />
-                </FormControl>
-                <FormMessage />
+                    <FormLabel>City</FormLabel>
+                    <FormControl>
+                        <Input {...field} className="bg-white" />
+                    </FormControl>
+                    <FormMessage />
                 </FormItem>
             )}
             />
@@ -51,11 +51,11 @@ const DetailsSection = () => {
             name="country"
             render={({ field }) => (
                 <FormItem className="flex-1">
-                <FormLabel>Country</FormLabel>
-                <FormControl>
-                    <Input {...field} className="bg-white" />
-                </FormControl>
-                <FormMessage />
+                    <FormLabel>Country</FormLabel>
+                    <FormControl>
+                        <Input {...field} className="bg-white" />
+                    </FormControl>
+                    <FormMessage />
                 </FormItem>
             )}
             />

@@ -13,36 +13,44 @@ import { Button } from "@/components/ui/button";
 const formSchema = z.object({
   restaurantName: z.string({
     required_error: "Restaurant name is required",
-  }),
+  }).min(1, "Restaurant name is required"),
   city: z.string({
     required_error: "City is required",
-  }),
+  }).min(1, "City is required"),
   country: z.string({
     required_error: "Country is required",
-  }),
-  deliveryPrice: z.coerce.number({
-    required_error: "Delivery price is required",
-    invalid_type_error: "Delivery price must be a valid number",
-  }),
-  estimatedDeliveryTime: z.coerce.number({
-    required_error: "Estimated delivery time is required",
-    invalid_type_error: "Estimated delivery time must be a valid number",
-  }),
+  }).min(1, "Country is required"),
+  deliveryPrice: z.coerce
+    .number({
+      required_error: "Delivery price is required",
+      invalid_type_error: "Delivery price must be a valid number",
+    })
+    .min(0, "Delivery price cannot be negative")
+    .max(10000, "Delivery price cannot exceed $10,000"),
+  estimatedDeliveryTime: z.coerce
+    .number({
+      required_error: "Estimated delivery time is required",
+      invalid_type_error: "Estimated delivery time must be a valid number",
+    })
+    .min(1, "Delivery time must be at least 1 minute")
+    .max(240, "Delivery time cannot exceed 4 hours"),
   cuisines: z.array(z.string()).nonempty({
-    message: "Please select at least one item",
+    message: "Please select at least one cuisine",
   }),
   menuItems: z.array(
     z.object({
       name: z.string().min(1, "Name is required"),
-      price: z.coerce.number({
-        required_error: "Price is required",
-        invalid_type_error: "Price must be a valid number",
-      }),
+      price: z.coerce
+        .number({
+          required_error: "Price is required",
+          invalid_type_error: "Price must be a valid number",
+        })
+        .min(0.01, "Price must be greater than $0")
+        .max(10000, "Price cannot exceed $10,000"),
     })
   ),
   imageUrl: z.string().optional(),
   imageFile: z.instanceof(File, { message: "Image is required" }),
-  // imageFile: z.instanceof(File, { message: "Image is required" }).optional(),
 });
 
 type RestaurantFormData = z.infer<typeof formSchema>;
@@ -65,6 +73,7 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
       menuItems: [{ name: "", price: 0 }],
       imageFile: undefined,
     },
+    mode: "onTouched"  // This will show validation errors when fields are touched and then blurred
   });
   
 
