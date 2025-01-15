@@ -4,7 +4,7 @@ import ManageRestaurantForm from "@/forms/manage-restaurant-form/ManageRestauran
 
 const ManageRestaurantPage = () => {
   const { createRestaurant, isLoading: isCreateLoading } = useCreateMyRestaurant();
-  const { restaurant, isLoading: isGetLoading, refetch } = useGetMyRestaurant();
+  const { restaurant, isLoading: isGetLoading } = useGetMyRestaurant();
   const { updateRestaurant, isLoading: isUpdateLoading } = useUpdateMyRestaurant();
 
   // when the page refresh

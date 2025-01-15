@@ -63,12 +63,12 @@ export const useGetMyRestaurant = () => {
     return response.json();
   };
 
-  const { data: restaurant, isLoading, refetch } = useQuery(
+  const { data: restaurant, isLoading } = useQuery(
     "fetchMyRestaurant",  // fetchMyRestaurant is a name we give for getMyRestaurantRequest query
     getMyRestaurantRequest
   );
 
-  return { restaurant, isLoading, refetch };
+  return { restaurant, isLoading };
 };
 
 export const useUpdateMyRestaurant = () => {
