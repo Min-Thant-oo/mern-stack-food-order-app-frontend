@@ -9,6 +9,8 @@ import MenuSection from "./MenuSection";
 import ImageSection from "./ImageSection";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
+import { Restaurant } from "@/types";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   restaurantName: z.string({
@@ -58,9 +60,10 @@ type RestaurantFormData = z.infer<typeof formSchema>;
 type Props = {
     onSave: (restaurantFormData: FormData) => void;
     isLoading: boolean;
+    restaurant?: Restaurant;
 };
 
-const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
+const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
   const form = useForm<RestaurantFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -75,6 +78,33 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
     },
     mode: "onTouched"  // This will show validation errors when fields are touched and then blurred
   });
+
+
+  useEffect(() => {
+    if(!restaurant) {
+      return;
+    }
+
+    // formatting price from lowest domination to normal since we saved cents in the DB
+    // toFixed changed it from number to string
+    // so use parseInt to change it back from string to number
+    const deliveryPriceFormatted = parseInt(
+      (restaurant.deliveryPrice / 100).toFixed(2)
+    );
+
+    const menuItemsFormatted = restaurant.menuItems.map((item) => ({
+      ...item,
+      price: parseInt((item.price / 100).toFixed(2)),
+    }));
+
+    const updatedRestaurant = {
+      ...restaurant,
+      deliveryPrice: deliveryPriceFormatted,
+      menuItems: menuItemsFormatted,
+    };
+
+    form.reset(updatedRestaurant);
+  }, [form, restaurant]);
   
 
   const onSubmit = (formDataJson: RestaurantFormData) => {

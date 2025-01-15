@@ -108,7 +108,7 @@ export const useGetMyUser = () => {
     data: currentUser,
     isLoading,
     error,
-  } = useQuery("fetchCurrentUser", getMyUserRequest);
+  } = useQuery("fetchCurrentUser", getMyUserRequest);  // fetchCurrentUser is a name we give for getMyUserRequest query
 
   if (error) {
     toast.error(error.toString());
