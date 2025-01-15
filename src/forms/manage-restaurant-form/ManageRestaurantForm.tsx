@@ -11,40 +11,41 @@ import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
-    restaurantName: z.string({
-      required_error: "Restaurant name is required",
-    }),
-    city: z.string({
-      required_error: "City is required",
-    }),
-    country: z.string({
-      required_error: "Country is required",
-    }),
-    deliveryPrice: z.coerce.number({
-      required_error: "Delivery price is required",
-      invalid_type_error: "Delivery price must be a valid number",
-    }),
-    estimatedDeliveryTime: z.coerce.number({
-      required_error: "Estimated delivery time is required",
-      invalid_type_error: "Estimated delivery time must be a valid number",
-    }),
-    cuisines: z.array(z.string()).nonempty({
-      message: "Please select at least one item",
-    }),
-    menuItems: z.array(
-      z.object({
-        name: z.string().min(1, "Name is required"),
-        price: z.coerce.number({
-          required_error: "Price is required",
-          invalid_type_error: "Price must be a valid number",
-        }),
-      })
-    ),
-    imageUrl: z.string().optional(),
-    imageFile: z.instanceof(File, { message: "Image is required" }),
+  restaurantName: z.string({
+    required_error: "Restaurant name is required",
+  }),
+  city: z.string({
+    required_error: "City is required",
+  }),
+  country: z.string({
+    required_error: "Country is required",
+  }),
+  deliveryPrice: z.coerce.number({
+    required_error: "Delivery price is required",
+    invalid_type_error: "Delivery price must be a valid number",
+  }),
+  estimatedDeliveryTime: z.coerce.number({
+    required_error: "Estimated delivery time is required",
+    invalid_type_error: "Estimated delivery time must be a valid number",
+  }),
+  cuisines: z.array(z.string()).nonempty({
+    message: "Please select at least one item",
+  }),
+  menuItems: z.array(
+    z.object({
+      name: z.string().min(1, "Name is required"),
+      price: z.coerce.number({
+        required_error: "Price is required",
+        invalid_type_error: "Price must be a valid number",
+      }),
+    })
+  ),
+  imageUrl: z.string().optional(),
+  imageFile: z.instanceof(File, { message: "Image is required" }),
+  // imageFile: z.instanceof(File, { message: "Image is required" }).optional(),
 });
 
-type restaurantFormData = z.infer<typeof formSchema>;
+type RestaurantFormData = z.infer<typeof formSchema>;
 
 type Props = {
     onSave: (restaurantFormData: FormData) => void;
@@ -52,17 +53,53 @@ type Props = {
 };
 
 const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
-  const form = useForm<restaurantFormData>({
+  const form = useForm<RestaurantFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        cuisines: [],
-        menuItems: [{ name: "", price: 0 }],
+      restaurantName: "",
+      city: "",
+      country: "",
+      deliveryPrice: 0,
+      estimatedDeliveryTime: 0,
+      cuisines: [],
+      menuItems: [{ name: "", price: 0 }],
+      imageFile: undefined,
     },
   });
+  
 
-  const onSubmit = (formDataJson: restaurantFormData) => {
-    // convert formDataJson to a new FormData object
-  }
+  const onSubmit = (formDataJson: RestaurantFormData) => {
+    const formData = new FormData();
+
+    formData.append("restaurantName", formDataJson.restaurantName);
+    formData.append("city", formDataJson.city);
+    formData.append("country", formDataJson.country);
+
+    formData.append(
+      "deliveryPrice",
+      (formDataJson.deliveryPrice * 100).toString()  // to turn the value into Cent
+    );
+    formData.append(
+      "estimatedDeliveryTime",
+      formDataJson.estimatedDeliveryTime.toString()
+    );
+    formDataJson.cuisines.forEach((cuisine, index) => {
+      formData.append(`cuisines[${index}]`, cuisine);
+    });
+    formDataJson.menuItems.forEach((menuItem, index) => {
+      formData.append(`menuItems[${index}][name]`, menuItem.name);
+      formData.append(
+        `menuItems[${index}][price]`,
+        (menuItem.price * 100).toString()   // to turn the value into Cent
+      );
+    });
+
+    if (formDataJson.imageFile) {
+      formData.append(`imageFile`, formDataJson.imageFile);
+    }
+
+    onSave(formData);
+  };
 
   return (
     <Form {...form}>

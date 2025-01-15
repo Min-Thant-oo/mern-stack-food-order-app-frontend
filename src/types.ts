@@ -1,3 +1,5 @@
+// use in api folder for the type of the reponse back from server
+
 export type User = {
     _id: string;
     email: string;
@@ -5,4 +7,25 @@ export type User = {
     addressLine1: string;
     city: string;
     country: string;
+};
+
+
+export type MenuItem = {
+    _id: string;
+    name: string;
+    price: number;
+};
+
+export type Restaurant = {
+    _id: string;
+    user: string;
+    restaurantName: string;
+    city: string;
+    country: string;
+    deliveryPrice: number;
+    estimatedDeliveryTime: number;
+    cuisines: string[];
+    menuItems: MenuItem[];
+    imageUrl: string;
+    lastUpdated: string;
 };
