@@ -52,7 +52,11 @@ const formSchema = z.object({
     })
   ),
   imageUrl: z.string().optional(),
-  imageFile: z.instanceof(File, { message: "Image is required" }),
+  imageFile: z.instanceof(File, { message: "image is required" }).optional(),
+})
+.refine((data) => data.imageUrl || data.imageFile, {
+  message: "Either image URL or image File must be provided",
+  path: ["imageFile"],
 });
 
 type RestaurantFormData = z.infer<typeof formSchema>;
@@ -88,13 +92,13 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
     // formatting price from lowest domination to normal since we saved cents in the DB
     // toFixed changed it from number to string
     // so use parseInt to change it back from string to number
-    const deliveryPriceFormatted = parseInt(
+    const deliveryPriceFormatted = parseFloat(
       (restaurant.deliveryPrice / 100).toFixed(2)
     );
 
     const menuItemsFormatted = restaurant.menuItems.map((item) => ({
       ...item,
-      price: parseInt((item.price / 100).toFixed(2)),
+      price: parseFloat((item.price / 100).toFixed(2)),
     }));
 
     const updatedRestaurant = {
