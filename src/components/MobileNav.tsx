@@ -10,12 +10,14 @@ import { Separator } from "./ui/separator"
 import { Button } from "./ui/button"
 import { useAuth0 } from "@auth0/auth0-react"
 import MobileNavLinks from "./MobileNavLinks"
+import { useState } from "react"
   
 
 const MobileNav = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger>
           <Menu className="text-orange-500" />
         </SheetTrigger>
@@ -34,7 +36,7 @@ const MobileNav = () => {
 
             <SheetDescription className='flex flex-col gap-4'>
                 {isAuthenticated 
-                  ? <MobileNavLinks />
+                  ? <MobileNavLinks setIsOpen={setIsOpen} />
                   : <Button 
                       onClick={async () => await loginWithRedirect()} 
                       className="flex-1 font-bold bg-orange-500"
