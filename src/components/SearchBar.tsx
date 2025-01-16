@@ -10,7 +10,9 @@ import { useEffect } from "react";
 const formSchema = z.object({
     searchQuery: z.string({
         required_error: "Restaurant name is required",
-    }),
+    })
+    .nonempty("Restaurant name cannot be empty"), // Validation for non-empty string
+
 });
 
 export type SearchForm = z.infer<typeof formSchema>;
@@ -26,7 +28,7 @@ const SearchBar = ({ onSubmit, onReset, placeHolder, searchQuery }: Props) => {
     const form = useForm<SearchForm>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            searchQuery,
+            searchQuery: "",
         },
     });
 
@@ -48,7 +50,7 @@ const SearchBar = ({ onSubmit, onReset, placeHolder, searchQuery }: Props) => {
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className={`flex items-center justify-between border-2 rounded-full gap-3 p-3 mx-5 ${
+                className={`flex items-center justify-between border-2 rounded-full gap-3 mx-3 md:mx-0 p-3 ${
                 form.formState.errors.searchQuery && "border-red-500"}`}
             >
                 <Search
@@ -71,17 +73,15 @@ const SearchBar = ({ onSubmit, onReset, placeHolder, searchQuery }: Props) => {
                     </FormItem>
                     )}
                 />
-                {form.formState.isDirty && (
                     <Button
                         onClick={handleReset}
                         type="button"
                         variant="outline"
                         className="rounded-full"
                     >
-                        Clear
+                        Reset
                     </Button>
-                )}
-                <Button type="submit" className="rounded-full bg-orange-500">
+                <Button type="submit" className="hidden md:block rounded-full bg-orange-500">
                     Search
                 </Button>
             </form>
