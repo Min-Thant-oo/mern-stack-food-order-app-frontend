@@ -64,7 +64,7 @@ type RestaurantFormData = z.infer<typeof formSchema>;
 type Props = {
     onSave: (restaurantFormData: FormData) => void;
     isLoading: boolean;
-    restaurant?: Restaurant;
+    restaurant?: Restaurant | null;
 };
 
 const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
@@ -86,7 +86,7 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
 
   useEffect(() => {
     if(!restaurant) {
-      return;
+      return; // Skip if no restaurant data
     }
 
     // formatting price from lowest domination to normal since we saved cents in the DB

@@ -7,28 +7,19 @@ const ManageRestaurantPage = () => {
   const { restaurant, isLoading: isGetLoading } = useGetMyRestaurant();
   const { updateRestaurant, isLoading: isUpdateLoading } = useUpdateMyRestaurant();
 
-  // when the page refresh
+  // Show spinner while loading restaurant data
   if(isGetLoading) {
     return <Spinner />;
   }
-
-  // editing mode if there is not useGetMyRestaurant
-  const isEditing = !!restaurant;
-
-  // const handleSave = (formData: FormData) => {
-  //   if (isEditing) {
-  //     updateRestaurant(formData);
-  //   } else {
-  //     createRestaurant(formData);
-  //   }
-  //   // Refetch the restaurant data after the save
-  //   refetch();
-  // };
+  
+  // editing mode if restaurant is not null
+  // null = no restaurant for this user = createRestaurant mode
+  const isEditing = restaurant !== null;
   
   return (
     <ManageRestaurantForm 
       restaurant={restaurant} 
-      onSave={isEditing ? updateRestaurant : createRestaurant} 
+      onSave={isEditing ? updateRestaurant : createRestaurant}
       isLoading={isCreateLoading || isUpdateLoading}
     />
   )

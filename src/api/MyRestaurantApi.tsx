@@ -47,7 +47,7 @@ export const useCreateMyRestaurant = () => {
 export const useGetMyRestaurant = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const getMyRestaurantRequest = async (): Promise<Restaurant> => {
+  const getMyRestaurantRequest = async (): Promise<Restaurant | null> => {
     const accessToken = await getAccessTokenSilently();
 
     const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
@@ -56,6 +56,10 @@ export const useGetMyRestaurant = () => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+
+    if (response.status === 404) {
+      return null;
+    }
 
     if (!response.ok) {
       throw new Error("Failed to get restaurant");
