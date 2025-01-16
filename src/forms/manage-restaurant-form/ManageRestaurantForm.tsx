@@ -35,7 +35,10 @@ const formSchema = z.object({
       invalid_type_error: "Estimated delivery time must be a valid number",
     })
     .min(1, "Delivery time must be at least 1 minute")
-    .max(240, "Delivery time cannot exceed 4 hours"),
+    .max(240, "Delivery time cannot exceed 4 hours")
+    .refine((value) => Number.isInteger(value), {
+      message: "Estimated delivery time must be a whole number",
+    }),
   cuisines: z.array(z.string()).nonempty({
     message: "Please select at least one cuisine",
   }),
