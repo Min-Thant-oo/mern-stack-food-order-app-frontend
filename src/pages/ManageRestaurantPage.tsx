@@ -1,6 +1,7 @@
 import { useCreateMyRestaurant, useGetMyRestaurant, useUpdateMyRestaurant } from "@/api/MyRestaurantApi";
 import Spinner from "@/components/Spinner";
 import ManageRestaurantForm from "@/forms/manage-restaurant-form/ManageRestaurantForm"
+import { Helmet } from "react-helmet-async";
 
 const ManageRestaurantPage = () => {
   const { createRestaurant, isLoading: isCreateLoading } = useCreateMyRestaurant();
@@ -17,11 +18,18 @@ const ManageRestaurantPage = () => {
   const isEditing = restaurant !== null;
   
   return (
-    <ManageRestaurantForm 
-      restaurant={restaurant} 
-      onSave={isEditing ? updateRestaurant : createRestaurant}
-      isLoading={isCreateLoading || isUpdateLoading}
-    />
+    <>
+      <Helmet>
+        <title>Manage Restaurant | SolarEats</title>
+        <meta name="description" content="Manage your restaurant settings" />
+      </Helmet>
+      
+      <ManageRestaurantForm 
+        restaurant={restaurant} 
+        onSave={isEditing ? updateRestaurant : createRestaurant}
+        isLoading={isCreateLoading || isUpdateLoading}
+      />
+    </>
   )
 }
 
