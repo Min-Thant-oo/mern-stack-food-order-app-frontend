@@ -19,7 +19,10 @@ export const useSearchRestaurants = (city?: string) => {
     const { data: results, isLoading } = useQuery(
       ["searchRestaurants"],
       createSearchRequest,
-      { enabled: !!city }  //this ensures that this query will not run unless we get truthy value or string value of city 
+      { 
+        enabled: !!city,   //this ensures that this query will not run unless we get truthy value or string value of city
+        retry: 1  // Will retry 2 times after initial failure (3 total attempts)
+      } 
     );
   
     return {
