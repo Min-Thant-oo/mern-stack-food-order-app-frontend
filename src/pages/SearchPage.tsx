@@ -4,6 +4,7 @@ import PaginationSelector from '@/components/PaginationSelector';
 import SearchBar, { SearchForm } from '@/components/SearchBar';
 import SearchResultCard from '@/components/SearchResultCard';
 import SearchResultInfo from '@/components/SearchResultInfo';
+import SortOptionDropdown from '@/components/SortOptionDropdown';
 import Spinner from '@/components/Spinner';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
@@ -12,6 +13,7 @@ export type SearchState = {
   searchQuery: string;
   page: number; // current page that user is on
   selectedCuisines: string[];
+  sortOption: string;
 }
 
 const SearchPage = () => {
@@ -19,7 +21,8 @@ const SearchPage = () => {
   const [searchState, setSearchState] = useState<SearchState>({ 
     searchQuery: "", 
     page: 1, 
-    selectedCuisines: [] 
+    selectedCuisines: [],
+    sortOption: "bestMatch"
   });
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -56,6 +59,14 @@ const SearchPage = () => {
     }));
   };
 
+  const setSortOption = (sortOption: string) => {
+    setSearchState((prevState) => (
+      {...prevState,
+      sortOption,
+      page: 1,}
+    ));
+  };
+
   if(isLoading) {
     return <Spinner />
   }
@@ -86,10 +97,17 @@ const SearchPage = () => {
           onReset={resetSearch}
           searchQuery={searchState.searchQuery}
         />
-        <SearchResultInfo total={results.pagination.total} city={city} />
+
+        <div className='flex justify-between flex-col gap-3 lg:flex-row'>
+          <SearchResultInfo total={results.pagination.total} city={city} />
+
+          <SortOptionDropdown sortOption={searchState.sortOption} onChange={(value) => setSortOption(value)} />
+        </div>
+
         {results.data.map((restaurant) => (
           <SearchResultCard key={restaurant._id} restaurant={restaurant} />
         ))}
+
         <PaginationSelector 
           page={results.pagination.page}   // current page that user is on
           pages={results.pagination.pages} // total pages available
