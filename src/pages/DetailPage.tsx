@@ -52,7 +52,17 @@ const DetailPage = () => {
             }
             return updatedCartItems;
         });
-    }
+    };
+
+    const removeFromCart = (cartItem: CartItem) => {
+        setCartItems((prevCartItems) => {
+            const updatedCartItems = prevCartItems.filter(
+                (item) => cartItem._id !== item._id
+            );
+    
+            return updatedCartItems;
+        });
+    };
 
     if(isLoading || !restaurant) {
         return <Spinner />;
@@ -81,7 +91,11 @@ const DetailPage = () => {
 
                 <div>
                     <Card>
-                        <OrderSummary restaurant={restaurant} cartItems={cartItems} />
+                        <OrderSummary 
+                            restaurant={restaurant} 
+                            cartItems={cartItems} 
+                            removeFromCart={removeFromCart} 
+                        />
                     </Card>
                 </div>
             </div>
