@@ -2,13 +2,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import LoadingButton from "./LoadingButton";
-
 const CheckoutButton = () => {
     const { isAuthenticated, isLoading: isAuthLoading, loginWithRedirect } = useAuth0();
-    
     const { pathname } = useLocation();
 
-    // if there is returnTo value in appState after login, redirect user to that page 
+    // Redirect user to login and store the current page in appState
     const onLogin = async () => {
         await loginWithRedirect({
             appState: {
@@ -29,9 +27,7 @@ const CheckoutButton = () => {
         return <LoadingButton />;
     }
     
-  return (
-    <div>CheckoutButton</div>
-  )
-}
+    return <div>CheckoutButton</div>;
+};
 
-export default CheckoutButton
+export default CheckoutButton;

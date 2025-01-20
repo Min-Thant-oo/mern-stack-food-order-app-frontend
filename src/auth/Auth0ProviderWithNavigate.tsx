@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 type Props = {
     children: React.ReactNode;
 }
+
 const Auth0ProviderWithNavigate = ({ children }: Props) => {
     const navigate = useNavigate();
 
@@ -12,26 +13,25 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
     const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URI;
     const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
-    if(!domain || !clientId || !redirectUri || !audience) {
-        throw new Error("unable to initialise auth")
+    if (!domain || !clientId || !redirectUri || !audience) {
+        throw new Error("Unable to initialise Auth0");
     }
 
-    // appState?.returnTo - if there is returnTo value in appState after login, redirect user to that page 
-    const onRedirectCallback = (appState? : AppState) => {
-        navigate(appState?.returnTo || '/auth-callback') 
+    const onRedirectCallback = (appState?: AppState) => {
+        const returnTo = appState?.returnTo || '/';
+        navigate(`/auth-callback?returnTo=${encodeURIComponent(returnTo)}`);
     };
-
     return (
-        <Auth0Provider 
-            domain={domain} 
-            clientId={clientId} 
-            authorizationParams={{ redirect_uri: redirectUri, audience }} 
+        <Auth0Provider
+            domain={domain}
+            clientId={clientId}
+            authorizationParams={{ redirect_uri: redirectUri, audience }}
             onRedirectCallback={onRedirectCallback}
-            cacheLocation="localstorage" 
+            cacheLocation="localstorage"
         >
             {children}
         </Auth0Provider>
-    )
-}
+    );
+};
 
-export default Auth0ProviderWithNavigate
+export default Auth0ProviderWithNavigate;
