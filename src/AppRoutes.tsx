@@ -21,6 +21,7 @@ export const AppRoutes = () => {
             />
 
             <Route path="/auth-callback" element={<AuthCallbackPage />} />
+
             <Route 
                 path="/search/:city" 
                 element={
@@ -29,6 +30,7 @@ export const AppRoutes = () => {
                     </Layout>
                 } 
             />
+            
             <Route 
                 path="/detail/:restaurantId" 
                 element={
