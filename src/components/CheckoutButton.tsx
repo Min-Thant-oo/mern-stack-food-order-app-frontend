@@ -2,7 +2,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import LoadingButton from "./LoadingButton";
-// import { DialogTrigger } from "@radix-ui/react-dialog";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
 import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
 import { useGetMyUser } from "@/api/MyUserApi";
@@ -53,6 +52,9 @@ const CheckoutButton = ({ onCheckout, disabled}: Props) => {
                     currentUser={currentUser} 
                     onSave={onCheckout} 
                     isLoading={isGetUserLoading}
+                    title="Confirm Delivery Details"
+                    buttonText="Continue to payment"
+                    deliveryDetailsModal={true}
                 />
             </DialogContent>
         </Dialog>
