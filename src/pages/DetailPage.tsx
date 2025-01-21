@@ -9,6 +9,7 @@ import OrderSummary from '@/components/OrderSummary';
 import { Card, CardFooter } from "@/components/ui/card";
 import { MenuItem as MenuItemType } from "@/types";
 import CheckoutButton from "@/components/CheckoutButton";
+import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
 
 export type CartItem = {
     _id: string;
@@ -72,6 +73,10 @@ const DetailPage = () => {
         });
     };
 
+    const onCheckout = (userFormData: UserFormData) => {
+        console.log("UserFormData", userFormData);
+    };
+
     if(isLoading || !restaurant) {
         return <Spinner />;
     };
@@ -105,7 +110,10 @@ const DetailPage = () => {
                             removeFromCart={removeFromCart} 
                         />
                         <CardFooter>
-                            <CheckoutButton />
+                            <CheckoutButton 
+                                disabled={cartItems.length === 0} 
+                                onCheckout={onCheckout}
+                            />
                         </CardFooter>
                     </Card>
                 </div>

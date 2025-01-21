@@ -22,8 +22,15 @@ const OrderSummary = ({ restaurant, cartItems, removeFromCart }: Props) => {
         // Ensure deliveryPrice is treated as number using Number()
         const totalWithDelivery = totalInCent + Number(restaurant.deliveryPrice);
 
-        // Convert the final total from cents to dollars
-        return (totalWithDelivery / 100).toFixed(2);
+        // Only include delivery price if there are items in the cart
+        if(totalInCent) {
+            // Convert the final total from cents to dollars
+            return (totalWithDelivery / 100).toFixed(2);
+        }
+
+        // without delivery price
+        return 0;
+
     };
 
     return (

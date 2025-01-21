@@ -2,9 +2,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import LoadingButton from "./LoadingButton";
-const CheckoutButton = () => {
+// import { DialogTrigger } from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
+import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
+import { useGetMyUser } from "@/api/MyUserApi";
+import { UserFormData } from '../forms/user-profile-form/UserProfileForm';
+
+type Props = {
+    onCheckout: (userFormData: UserFormData) => void;
+    disabled: boolean;
+};
+
+const CheckoutButton = ({ onCheckout, disabled}: Props) => {
     const { isAuthenticated, isLoading: isAuthLoading, loginWithRedirect } = useAuth0();
     const { pathname } = useLocation();
+    const { currentUser, isLoading : isGetUserLoading } = useGetMyUser();
 
     // Redirect user to login and store the current page in appState
     const onLogin = async () => {
@@ -23,11 +35,28 @@ const CheckoutButton = () => {
         );
     }
 
-    if (isAuthLoading) {
+    if (isAuthLoading || !currentUser) {
         return <LoadingButton />;
     }
     
-    return <div>CheckoutButton</div>;
+    return (
+        <Dialog>
+            <DialogTrigger disabled={disabled} asChild>
+                <Button disabled={disabled} className="bg-orange-500 flex-1">Go to checkout</Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-[425px] md:min-w-[700px] bg-gray-50">
+                <DialogTitle className="sr-only">Checkout</DialogTitle> 
+                <DialogDescription className="sr-only">
+                    Please complete your profile to proceed with checkout.
+                </DialogDescription>
+                <UserProfileForm 
+                    currentUser={currentUser} 
+                    onSave={onCheckout} 
+                    isLoading={isGetUserLoading}
+                />
+            </DialogContent>
+        </Dialog>
+    );
 };
 
 export default CheckoutButton;

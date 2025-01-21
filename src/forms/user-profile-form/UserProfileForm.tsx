@@ -54,6 +54,7 @@ const UserProfileForm = ({
   return (
     <Form {...form}>
       <form
+        // This function automatically collects the current form data and passes it as an argument to the onSave function
         onSubmit={form.handleSubmit(onSave)}
         className="space-y-4 bg-gray-50 rounded-lg p-5 md:p-10"
       >
