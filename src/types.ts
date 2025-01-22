@@ -38,3 +38,29 @@ export type RestaurantSearchResponse = {
         pages: number;
     };
 };
+
+export type deliveryStatus = "placed" | "paid" | "inProgress" | "outForDelivery" | "delivered";
+
+export type paymentStatus = "unpaid" | "paid" | "refunded";
+
+export type Order = {
+    _id: string;
+    restaurant: Restaurant;
+    user: User;
+    cartItems: {
+        menuItemId: string;
+        name: string;
+        quantity: string;
+    }[];
+    deliveryDetails: {
+        name: string;
+        addressLine1: string;
+        city: string;
+        email: string;
+    };
+    totalAmount: number;
+    deliveryStatus: deliveryStatus;
+    paymentStatus: paymentStatus;
+    createdAt: string;
+    restaurantId: string;
+};
