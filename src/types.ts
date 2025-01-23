@@ -39,9 +39,7 @@ export type RestaurantSearchResponse = {
     };
 };
 
-export type deliveryStatus = "placed" | "paid" | "inProgress" | "outForDelivery" | "delivered";
-
-export type paymentStatus = "unpaid" | "paid" | "refunded";
+export type OrderStatus = "placed" | "paid" | "inProgress" | "outForDelivery" | "delivered" | "cancelled";
 
 export type Order = {
     _id: string;
@@ -58,9 +56,10 @@ export type Order = {
         city: string;
         email: string;
     };
+    subTotal: number;
+    deliveryPrice: number;
     totalAmount: number;
-    deliveryStatus: deliveryStatus;
-    paymentStatus: paymentStatus;
+    status: OrderStatus;
     createdAt: string;
     restaurantId: string;
 };

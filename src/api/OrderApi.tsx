@@ -83,7 +83,7 @@ export const useGetMyOrders = () => {
     const { data: orders, isLoading } = useQuery(
         "fetchMyOrders", getMyOrdersRequest,   // fetchMyOrders is a key we give to cache
         {
-            refetchInterval: 5000,
+            // refetchInterval: 5000,
         }
     );
   
