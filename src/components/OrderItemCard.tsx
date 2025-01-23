@@ -103,7 +103,7 @@ const OrderItemCard = ({ order }: Props) => {
                                 </SelectTrigger>
                                 <SelectContent position="popper">
                                     {ORDER_STATUS.map((status) => (
-                                        <SelectItem value={status.value}>{status.label}</SelectItem>
+                                        <SelectItem key={status.value} value={status.value}>{status.label}</SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
