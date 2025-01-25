@@ -55,15 +55,12 @@ const OrderStatusHeader = ({ order }: Props) => {
                     Expected by: <span>{expecteddeliveryTimeInfo}</span>
                 </span>
                 )}
-                {order.status === 'delivered' && (
-                <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
-                    Delivered at: <span>{updatedTimeInfo}</span>
-                </span>
-                )}
-                {order.status === 'cancelled' && (
-                <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
-                    Cancelled by <br />you at: <span>{updatedTimeInfo}</span>
-                </span>
+                {(order.status === 'delivered' || order.status === 'cancelled') && (
+                    <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
+                        {order.status === 'delivered' && 'Delivered at: '}
+                        {order.status === 'cancelled' && 'Cancelled at: '}
+                        <span>{updatedTimeInfo}</span>
+                    </span>
                 )}
             </h1>
             <Progress
