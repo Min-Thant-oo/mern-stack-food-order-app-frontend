@@ -24,6 +24,16 @@ const OrderStatusHeader = ({ order }: Props) => {
         return `${hours}:${paddedMinutes}`;
     };
 
+    const getUpdatedTime = () => {
+        const updatedAt = new Date(order.updatedAt);
+
+        const hours = updatedAt.getHours();
+        const minutes = updatedAt.getMinutes();
+        const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+        return `${hours}:${paddedMinutes}`;
+    };
+
     const getOrderStatusInfo = () => {
         return (
             ORDER_STATUS.find((orderStatus) => orderStatus.value === order.status) || ORDER_STATUS[0]
@@ -31,7 +41,8 @@ const OrderStatusHeader = ({ order }: Props) => {
     };
 
     const orderStatusInfo = getOrderStatusInfo();
-    const deliveryTimeInfo = getExpectedDeliveryTime();
+    const expecteddeliveryTimeInfo = getExpectedDeliveryTime();
+    const updatedTimeInfo = getUpdatedTime();   // used both for delivered and cancelled
 
     return (
         <>
@@ -39,9 +50,19 @@ const OrderStatusHeader = ({ order }: Props) => {
                 <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
                     Order Status: <span className={`text-3xl font-bold text-right ${orderStatusInfo.color} ${orderStatusInfo.textColor} p-1 rounded`}>{orderStatusInfo.label}</span>
                 </span>
-                {order.status !== 'delivered' && (
+                {order.status !== 'delivered' && order.status !== 'cancelled' && (
                 <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
-                    Expected by: <span className='text-3xl font-bold'>{deliveryTimeInfo}</span>
+                    Expected by: <span className='text-3xl font-bold'>{expecteddeliveryTimeInfo}</span>
+                </span>
+                )}
+                {order.status === 'delivered' && (
+                <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
+                    Delivered at: <span className='text-3xl font-bold'>{updatedTimeInfo}</span>
+                </span>
+                )}
+                {order.status === 'cancelled' && (
+                <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
+                    Cancelled at: <span className='text-3xl font-bold'>{updatedTimeInfo}</span>
                 </span>
                 )}
             </h1>
