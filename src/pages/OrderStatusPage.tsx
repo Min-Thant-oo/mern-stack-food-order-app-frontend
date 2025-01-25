@@ -26,7 +26,7 @@ const OrderStatusPage = () => {
             <>
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">{activeOrders.length} active {activeOrders?.length === 1 ? 'order' : 'orders'}</h2>
                 {activeOrders.map((order) => (
-                    <div key={order._id} className="space-y-10 mb-6 bg-gray-100 p-10 rounded-lg">
+                    <div key={order._id} className="space-y-10 mb-6 bg-gray-100 p-5 md:p-10 rounded-lg">
                         <OrderStatusHeader order={order} />
                         <div className="grid gap-10 md:grid-cols-2">
                             <OrderStatusDetail order={order} />

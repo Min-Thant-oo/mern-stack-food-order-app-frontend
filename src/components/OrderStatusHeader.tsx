@@ -48,21 +48,21 @@ const OrderStatusHeader = ({ order }: Props) => {
         <>
             <h1 className="tracking-tighter flex flex-col gap-5 md:flex-row md:justify-between">
                 <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
-                    Order Status: <span className={`text-3xl font-bold text-right ${orderStatusInfo.color} ${orderStatusInfo.textColor} p-1 rounded`}>{orderStatusInfo.label}</span>
+                    Order Status: <span className={` font-bold text-right p-1 rounded`}>{orderStatusInfo.label}</span>
                 </span>
                 {order.status !== 'delivered' && order.status !== 'cancelled' && (
                 <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
-                    Expected by: <span className='text-3xl font-bold'>{expecteddeliveryTimeInfo}</span>
+                    Expected by: <span>{expecteddeliveryTimeInfo}</span>
                 </span>
                 )}
                 {order.status === 'delivered' && (
                 <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
-                    Delivered at: <span className='text-3xl font-bold'>{updatedTimeInfo}</span>
+                    Delivered at: <span>{updatedTimeInfo}</span>
                 </span>
                 )}
                 {order.status === 'cancelled' && (
                 <span className='text-2xl font-semibold flex items-center justify-between md:justify-start md:block'> 
-                    Cancelled at: <span className='text-3xl font-bold'>{updatedTimeInfo}</span>
+                    Cancelled by <br />you at: <span>{updatedTimeInfo}</span>
                 </span>
                 )}
             </h1>
