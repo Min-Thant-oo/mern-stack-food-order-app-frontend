@@ -22,7 +22,7 @@ const MobileNavLinks = ({ setIsOpen }: MobileNavLinksProps) => {
         className={getLinkClass("/order-status")}
         onClick={() => setIsOpen(false)}
       >
-        Order Status
+        Orders
       </Link>
 
       <Link

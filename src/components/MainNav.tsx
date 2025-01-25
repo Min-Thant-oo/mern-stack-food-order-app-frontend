@@ -10,25 +10,25 @@ const MainNav = () => {
     return <span>Loading...</span>;
   }
   return (
-    <span className="flex space-x-2 items-center gap-x-2">
+    <nav className="flex space-x-2 items-center gap-x-2">
       {isAuthenticated 
         ? (
           <>
-            <Link to='/order-status'className="font-bold hover:text-orange-500">
-              Order Status
+            <Link to='/order-status'className="font-bold text-gray-700 hover:text-orange-500 transition-colors duration-300">
+              Orders
             </Link>
             <UsernameMenu />
           </>
         )
         : <Button 
-            variant='ghost' 
-            className='font-bold hover:text-orange-500 hover:bg-white'
+            variant='outline' 
+            className='font-bold text-orange-500 border-orange-500 hover:bg-orange-500 hover:text-white transition-colors duration-300'
             onClick={async () => await loginWithRedirect()}
           >
               Log In
           </Button>
       }
-    </span>
+    </nav>
   )
 }
 
