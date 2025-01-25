@@ -136,7 +136,10 @@ export const useGetMyRestaurantOrders = () => {
 
   const { data: orders, isLoading } = useQuery(
     "fetchMyRestaurantOrders",
-    getMyRestaurantOrdersRequest
+    getMyRestaurantOrdersRequest,
+    {
+      refetchInterval: 3000,
+    }
   );
 
   return { orders, isLoading };
@@ -180,14 +183,5 @@ export const useUpdateMyRestaurantOrder = () => {
     reset,
   } = useMutation(updateMyRestaurantOrder);
 
-  if (isSuccess) {
-    toast.success("Order updated");
-  }
-
-  if (isError) {
-    toast.error("Unable to update order");
-    reset();
-  }
-
-  return { updateRestaurantStatus, isLoading };
+  return { updateRestaurantStatus, isLoading, isError, isSuccess, reset };
 };
