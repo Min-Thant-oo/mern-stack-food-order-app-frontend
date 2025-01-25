@@ -49,6 +49,7 @@ export type Order = {
         menuItemId: string;
         name: string;
         quantity: string;
+        price: number;
     }[];
     deliveryDetails: {
         name: string;
