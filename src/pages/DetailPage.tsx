@@ -85,6 +85,7 @@ const DetailPage = () => {
                 menuItemId: cartItem._id,
                 name: cartItem.name,
                 quantity: cartItem.quantity.toString(),
+                price: cartItem.price,
             })),
             restaurantId: restaurant._id,
             deliveryDetails: {
@@ -98,6 +99,8 @@ const DetailPage = () => {
     
         const data = await createCheckoutSession(checkoutData);
         window.location.href = data.url;
+
+        sessionStorage.removeItem(`cartItems-${restaurantId}`);
     };
 
     if(isLoading || !restaurant) {

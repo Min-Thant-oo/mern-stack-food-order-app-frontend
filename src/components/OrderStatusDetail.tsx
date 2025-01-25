@@ -10,7 +10,7 @@ const OrderStatusDetail = ({ order }: Props) => {
         <div className="space-y-5">
             <div className="flex justify-between">
                 <span className="font-bold">Delivering to:</span>
-                <div className="flex flex-col text-right">
+                <div className="flex flex-col text-right font-mono">
                     <span>{order.deliveryDetails.name}</span>
                     <span>
                         {order.deliveryDetails.addressLine1}, {order.deliveryDetails.city}
@@ -23,9 +23,12 @@ const OrderStatusDetail = ({ order }: Props) => {
                 <ul className="">
                     {order.cartItems.map((item) => (
                         <li key={item.menuItemId}>
-                            {item.name} x {item.quantity} 
-                            {item.name} x {item.quantity}
-                            {item.name} x {item.quantity}
+                            <div className="font-mono flex justify-between">
+                                <span>{item.name}</span>
+                                <div>
+                                    <span>{item.quantity}</span> x{" "} <span>${(item.price / 100).toFixed(2)}</span>
+                                </div>
+                            </div>
                         </li>
                     ))}
                 </ul>
