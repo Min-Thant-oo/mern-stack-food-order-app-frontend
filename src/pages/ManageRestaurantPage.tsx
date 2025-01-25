@@ -20,6 +20,13 @@ const ManageRestaurantPage = () => {
   // editing mode if restaurant is not null
   // null = no restaurant for this user = createRestaurant mode
   const isEditing = restaurant !== null;
+
+  if (!orders || orders.length === 0) {
+    return "No orders found";
+  }
+  
+  const activeOrders = orders.filter((order) => order.status !== 'delivered' && order.status !== 'cancelled');
+  const pastOrders = orders.filter((order) => order.status === 'delivered' || order.status === 'cancelled');
   
   return (
     <>
@@ -34,11 +41,24 @@ const ManageRestaurantPage = () => {
           <TabsTrigger value="manage-restaurant">Manage Restaurant</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="orders" className="space-y-5 bg-gray-50 p-10 rounded-lg">
-          <h2 className="text-2xl font-bold">{orders?.length} active orders</h2>
-          {orders?.map((order) => (
-            <OrderItemCard order={order} key={order._id} />
-          ))}
+        <TabsContent value="orders" className="">
+          {activeOrders.length > 0 && (
+            <div className="bg-gray-50 space-y-5 p-10 rounded-lg mb-10">
+              <h2 className="text-2xl font-bold">{activeOrders?.length} active {activeOrders?.length === 1 ? 'order' : 'orders'}</h2>
+              {activeOrders?.map((order) => (
+                <OrderItemCard order={order} key={order._id} />
+              ))}
+            </div>
+          )}
+
+          {pastOrders.length > 0 && (
+            <div className="bg-gray-50 space-y-5 p-10 rounded-lg">
+              <h2 className="text-2xl font-bold">{pastOrders?.length} past {pastOrders?.length === 1 ? 'order' : 'orders'}</h2>
+              {pastOrders?.map((order) => (
+                <OrderItemCard order={order} key={order._id} />
+              ))}
+            </div>
+          )}
         </TabsContent>
 
         <TabsContent value="manage-restaurant">
