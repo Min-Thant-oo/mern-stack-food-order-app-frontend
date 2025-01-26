@@ -40,12 +40,14 @@ const UsernameMenu = () => {
                 <DropdownMenuItem className="flex flex-1 justify-center items-center pt-2 pb-1 focus:outline-none focus:ring-0">
                     <Button 
                         className=" w-full font-bold bg-orange-500 hover:bg-orange-600 transition-colors" 
-                        onClick={() => logout({
+                        onClick={() => {
+                            sessionStorage.clear();
+                            logout({
                             logoutParams: {
                               returnTo: window.location.origin
                             }
                           })
-                        }
+                        }}
                     >
                         Log Out
                     </Button>
