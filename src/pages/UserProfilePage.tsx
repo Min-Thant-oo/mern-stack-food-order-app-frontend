@@ -1,10 +1,12 @@
 import { useGetMyUser, useUpdateMyUser } from "@/api/MyUserApi";
 import Spinner from "@/components/Spinner";
 import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Helmet } from "react-helmet-async";
 
 const UserProfilePage = () => {
-  const { currentUser, isLoading: isGetLoading } = useGetMyUser();
+  const { isAuthenticated } = useAuth0();
+  const { currentUser, isLoading: isGetLoading } = useGetMyUser(isAuthenticated);
   const { updateUser, isLoading: isUpdateLoading } = useUpdateMyUser();
 
   if (isGetLoading) {
