@@ -83,7 +83,7 @@ export const useUpdateMyUser = () => {
   return { updateUser, isLoading };
 };
 
-export const useGetMyUser = () => {
+export const useGetMyUser = (enabled: boolean) => {
   const { getAccessTokenSilently } = useAuth0();
 
   const getMyUserRequest = async (): Promise<User> => {
@@ -104,11 +104,12 @@ export const useGetMyUser = () => {
     return response.json();
   };
 
-  const {
-    data: currentUser,
-    isLoading,
-    error,
-  } = useQuery("fetchCurrentUser", getMyUserRequest);  // fetchCurrentUser is a key we give for getMyUserRequest query to cache(static query)
+  const { data: currentUser, isLoading, error, } = useQuery(
+    "fetchCurrentUser", getMyUserRequest, // fetchCurrentUser is a key we give for getMyUserRequest query to cache(static query)
+    { 
+      enabled, // this tells the react query to only make this query if enabled is true
+    }
+  );  
 
   if (error) {
     toast.error(error.toString());
