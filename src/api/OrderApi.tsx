@@ -89,3 +89,39 @@ export const useGetMyOrders = () => {
   
     return { orders, isLoading };
 };
+
+type CancelOrderRequest = {
+    orderId: string;
+}
+
+export const useCancelMyOrder = () => {
+    const { getAccessTokenSilently } = useAuth0();
+    
+    const cancelMyOrderRequest = async (cancelOrderRequest: CancelOrderRequest): Promise<Order[]> => {
+        const accessToken = await getAccessTokenSilently();
+
+        const response = await fetch(`${API_BASE_URL}/api/order/${cancelOrderRequest.orderId}/cancel`, 
+        {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        });
+  
+        if (!response.ok) {
+            throw new Error("Failed to get orders");
+        }
+    
+        return response.json();
+    };
+
+    const {
+        mutateAsync: cancelMyOrder,
+        isLoading,
+        isError,
+        isSuccess,
+        reset,
+    } = useMutation(cancelMyOrderRequest);
+    
+    return { cancelMyOrder, isLoading, isError, isSuccess, reset };
+}

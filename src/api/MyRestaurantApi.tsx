@@ -185,3 +185,39 @@ export const useUpdateMyRestaurantOrder = () => {
 
   return { updateRestaurantStatus, isLoading, isError, isSuccess, reset };
 };
+
+// type CancelMyRestaurantOrderRequest = {
+//   orderId: string;
+// }
+
+// export const useCancelMyRestaurantOrder = () => {
+//   const { getAccessTokenSilently } = useAuth0();
+  
+//   const cancelMyRestaurantOrder = async ({orderId}: CancelMyRestaurantOrderRequest) => {
+//     const accessToken = await getAccessTokenSilently();
+
+//     const response = await fetch(`${API_BASE_URL}/api/restaurant/${orderId}/cancel`, 
+//     {
+//       method: "PATCH",
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       }
+//     });
+
+//     if (!response.ok) {
+//       throw new Error("Failed to cancel orders");
+//     }
+
+//     return response.json();
+// };
+
+//   const {
+//     mutateAsync: cancelOrder,
+//     isLoading,
+//     isError,
+//     isSuccess,
+//     reset,
+//   } = useMutation(cancelMyRestaurantOrder);
+
+//   return { cancelOrder, isLoading, isError, isSuccess, reset };
+// }

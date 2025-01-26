@@ -61,6 +61,7 @@ export type Order = {
     deliveryPrice: number;
     totalAmount: number;
     status: OrderStatus;
+    cancelledBy: "customer" | "restaurant" | null;
     createdAt: string;
     updatedAt: string;
     restaurantId: string;

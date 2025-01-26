@@ -94,7 +94,11 @@ const OrderItemCard = ({ order }: Props) => {
                     {(order.status === 'delivered' || order.status === 'cancelled') && (
                         <div>
                             {order.status === 'delivered' && 'Delivered at:'}
-                            {order.status === 'cancelled' && 'Cancelled at:'}
+                            {order.status === 'cancelled' && (
+                                <>
+                                    Cancelled by {order.cancelledBy === 'restaurant' ? 'restaurant' : 'customer'} at: {" "}
+                                </>
+                            )}
                             <span className="ml-2 font-normal">
                                 {updatedTimeInfo}
                             </span>
@@ -146,7 +150,9 @@ const OrderItemCard = ({ order }: Props) => {
 
 
                     <div className={`flex flex-col space-y-1.5 ${status === 'delivered' || status === 'cancelled' ? 'pointer-events-none' : ''}`}>
-                        <Label htmlFor="status">What is the status of this order?</Label>
+                        <Label htmlFor="status">
+                            What is the status of this order? 
+                        </Label>
                             <Select
                                 value={status}
                                 disabled={isLoading || status === 'delivered' || status === 'cancelled'}
