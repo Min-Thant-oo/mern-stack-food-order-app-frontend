@@ -45,15 +45,42 @@ const UserProfileForm = ({
     buttonText = "Submit",
     deliveryDetailsModal = false,
 }: Props) => {
+
+  // Initialize with empty strings to avoid uncontrolled to controlled warning
+  const defaultValues: UserFormData = {
+    email: currentUser?.email || "",
+    name: currentUser?.name || "",
+    addressLine1: currentUser?.addressLine1 || "",
+    city: currentUser?.city || "",
+    country: currentUser?.country || "",
+  };
+
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: currentUser,
+    defaultValues,
     mode: "onTouched"
   });
 
+
+  // Only update form when currentUser changes and has different values
   useEffect(() => {
-    form.reset(currentUser);
-  }, [currentUser, form])
+    if (currentUser) {
+      const formValues = form.getValues();
+      const hasChanges = (Object.keys(formValues) as Array<keyof UserFormData>).some(
+        key => currentUser[key as keyof User] !== formValues[key]
+      );
+      
+      if (hasChanges) {
+        form.reset({
+          email: currentUser.email || "",
+          name: currentUser.name || "",
+          addressLine1: currentUser.addressLine1 || "",
+          city: currentUser.city || "",
+          country: currentUser.country || "",
+        });
+      }
+    }
+  }, [currentUser, form]);
 
   return (
     <Form {...form}>
