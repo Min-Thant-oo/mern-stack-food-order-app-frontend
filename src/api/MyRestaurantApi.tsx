@@ -99,19 +99,25 @@ export const useUpdateMyRestaurant = () => {
   const {
     mutate: updateRestaurant,
     isLoading,
-    error,
-    isSuccess,
-  } = useMutation(updateRestaurantRequest);
+  } = useMutation({
+    mutationFn: updateRestaurantRequest,
+    onSuccess: () => {
+      toast.success("Restaurant Updated");
+    },
+    onError: () => {
+      toast.error("Unable to update restaurant");
+    }
+  });
 
-  if (isSuccess) {
-    toast.success("Restaurant Updated");
-  }
+  // if (isSuccess) {
+  //   toast.success("Restaurant Updated");
+  // }
 
-  if (error) {
-    toast.error("Unable to update restaurant");
-  }
+  // if (error) {
+  //   toast.error("Unable to update restaurant");
+  // }
 
-  return { updateRestaurant, isLoading };
+  return { updateRestaurant, isLoading};
 };
 
 export const useGetMyRestaurantOrders = () => {

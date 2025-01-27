@@ -1,76 +1,53 @@
 import { useCreateMyRestaurant, useGetMyRestaurant, useGetMyRestaurantOrders, useUpdateMyRestaurant } from "@/api/MyRestaurantApi";
-import OrderItemCard from "@/components/OrderItemCard";
+import OrdersTab from "@/components/ManageRestaurantPage/OrdersTab";
 import Spinner from "@/components/Spinner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ManageRestaurantForm from "@/forms/manage-restaurant-form/ManageRestaurantForm"
-import { Helmet } from "react-helmet-async";
+import ManageRestaurantForm from "@/forms/manage-restaurant-form/ManageRestaurantForm";
+import { Helmet } from "react-helmet-async";;
 
 const ManageRestaurantPage = () => {
   const { createRestaurant, isLoading: isCreateLoading } = useCreateMyRestaurant();
-  const { restaurant, isLoading: isGetLoading } = useGetMyRestaurant();
+  const { restaurant, isLoading: isGetRestaurantLoading } = useGetMyRestaurant();
   const { updateRestaurant, isLoading: isUpdateLoading } = useUpdateMyRestaurant();
+  const { orders, isLoading: isGetRestaurantOrderLoading } = useGetMyRestaurantOrders();
 
-  const { orders } = useGetMyRestaurantOrders();
-
-  // Show spinner while loading restaurant data
-  if(isGetLoading) {
+  if (isGetRestaurantLoading || isGetRestaurantOrderLoading) {
     return <Spinner />;
   }
-  
-  // editing mode if restaurant is not null
-  // null = no restaurant for this user = createRestaurant mode
-  const isEditing = restaurant !== null;
 
-  if (!orders || orders.length === 0) {
-    return "No orders found";
-  }
-  
-  const activeOrders = orders.filter((order) => order.status !== 'delivered' && order.status !== 'cancelled');
-  const pastOrders = orders.filter((order) => order.status === 'delivered' || order.status === 'cancelled');
-  
+  const handleSave = restaurant ? updateRestaurant : createRestaurant;
+  const isLoading = isCreateLoading || isUpdateLoading;
+
   return (
     <>
       <Helmet>
         <title>Manage Restaurant | SolarEats</title>
-        <meta name="description" content="Manage your restaurant settings" />
+        <meta 
+          name="description" 
+          content="Manage your restaurant settings and view orders"
+        />
       </Helmet>
       
-      <Tabs defaultValue="orders">
-        <TabsList>
+      <Tabs defaultValue="orders" className="space-y-6">
+        <TabsList className="w-full sm:w-auto">
           <TabsTrigger value="orders">View Orders</TabsTrigger>
           <TabsTrigger value="manage-restaurant">Manage Restaurant</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="orders" className="">
-          {activeOrders.length > 0 && (
-            <div className="bg-gray-50 space-y-5 p-10 rounded-lg mb-10">
-              <h2 className="text-2xl font-bold">{activeOrders?.length} active {activeOrders?.length === 1 ? 'order' : 'orders'}</h2>
-              {activeOrders?.map((order) => (
-                <OrderItemCard order={order} key={order._id} />
-              ))}
-            </div>
-          )}
-
-          {pastOrders.length > 0 && (
-            <div className="bg-gray-50 space-y-5 p-10 rounded-lg">
-              <h2 className="text-2xl font-bold">{pastOrders?.length} past {pastOrders?.length === 1 ? 'order' : 'orders'}</h2>
-              {pastOrders?.map((order) => (
-                <OrderItemCard order={order} key={order._id} />
-              ))}
-            </div>
-          )}
+        <TabsContent value="orders">
+          <OrdersTab orders={orders ?? []} />
         </TabsContent>
 
         <TabsContent value="manage-restaurant">
-            <ManageRestaurantForm 
-              restaurant={restaurant} 
-              onSave={isEditing ? updateRestaurant : createRestaurant}
-              isLoading={isCreateLoading || isUpdateLoading}
-            />
+          <ManageRestaurantForm 
+            restaurant={restaurant}
+            onSave={handleSave}
+            isLoading={isLoading}
+          />
         </TabsContent>
       </Tabs>
     </>
-  )
-}
+  );
+};
 
-export default ManageRestaurantPage
+export default ManageRestaurantPage;
