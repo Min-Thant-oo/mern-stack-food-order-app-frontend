@@ -1,6 +1,5 @@
 import { useCreateMyRestaurant, useGetMyRestaurant, useGetMyRestaurantOrders, useUpdateMyRestaurant } from "@/api/MyRestaurantApi";
 import OrdersTab from "@/components/ManageRestaurantPage/OrdersTab";
-import Spinner from "@/components/shared/Spinner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ManageRestaurantForm from "@/components/ManageRestaurantPage/manage-restaurant-form/ManageRestaurantForm";
 import { Helmet } from "react-helmet-async";
