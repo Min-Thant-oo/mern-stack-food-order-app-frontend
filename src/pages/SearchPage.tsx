@@ -8,6 +8,7 @@ import SortOptionDropdown from '@/components/SearchPage/SortOptionDropdown';
 import Spinner from '@/components/shared/Spinner';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 export type SearchState = {
   searchQuery: string;
@@ -81,40 +82,47 @@ const SearchPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-      <div id="cuisines-list">
-        <CuisineFilter 
-          selectedCuisines={searchState.selectedCuisines}
-          onChange={setSelectedCuisines}
-          isExpanded={isExpanded}
-          onExpandedClick={() => setIsExpanded((prevIsExpanded) => !prevIsExpanded)}
-        />
-      </div>
-      <div id="main-content" className='flex flex-col gap-5'>
-        <SearchBar 
-          onSubmit={setSearchQuery} 
-          placeHolder='Search by Cuisines or Restaurant Name' 
-          onReset={resetSearch}
-          searchQuery={searchState.searchQuery}
-        />
+    <>
+      <Helmet>
+        <title>Best Restaurants in ${city} | SolarEats | MIN THANT OO | minthantoo.com</title>
+        <meta name="description" content="Discover the best restaurants in ${city} on SolarEats. Read reviews, explore menus, and order food delivery from top-rated local eateries. | MIN THANT OO | minthantoo.com" />      
+      </Helmet>
 
-        <div className='flex justify-between flex-col gap-3 lg:flex-row'>
-          <SearchResultInfo total={results.pagination.total} city={city} />
-
-          <SortOptionDropdown sortOption={searchState.sortOption} onChange={(value) => setSortOption(value)} />
+      <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
+        <div id="cuisines-list">
+          <CuisineFilter 
+            selectedCuisines={searchState.selectedCuisines}
+            onChange={setSelectedCuisines}
+            isExpanded={isExpanded}
+            onExpandedClick={() => setIsExpanded((prevIsExpanded) => !prevIsExpanded)}
+          />
         </div>
+        <div id="main-content" className='flex flex-col gap-5'>
+          <SearchBar 
+            onSubmit={setSearchQuery} 
+            placeHolder='Search by Cuisines or Restaurant Name' 
+            onReset={resetSearch}
+            searchQuery={searchState.searchQuery}
+          />
 
-        {results.data.map((restaurant) => (
-          <SearchResultCard key={restaurant._id} restaurant={restaurant} />
-        ))}
+          <div className='flex justify-between flex-col gap-3 lg:flex-row'>
+            <SearchResultInfo total={results.pagination.total} city={city} />
 
-        <PaginationSelector 
-          page={results.pagination.page}   // current page that user is on
-          pages={results.pagination.pages} // total pages available
-          onPageChange={setPage} 
-        />
+            <SortOptionDropdown sortOption={searchState.sortOption} onChange={(value) => setSortOption(value)} />
+          </div>
+
+          {results.data.map((restaurant) => (
+            <SearchResultCard key={restaurant._id} restaurant={restaurant} />
+          ))}
+
+          <PaginationSelector 
+            page={results.pagination.page}   // current page that user is on
+            pages={results.pagination.pages} // total pages available
+            onPageChange={setPage} 
+          />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

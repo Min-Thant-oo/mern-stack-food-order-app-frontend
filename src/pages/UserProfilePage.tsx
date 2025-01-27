@@ -21,8 +21,8 @@ const UserProfilePage = () => {
 
     <>
       <Helmet>
-          <title>User Profile | SolarEats</title>
-          <meta name="description" content="Manage your profile settings" />
+        <title>User Profile | Manage Account Settings | SolarEats | MIN THANT OO | minthantoo.com</title>
+        <meta name="description" content="Manage your SolarEats profile settings. Update personal information, preferences, and account details to enhance your experience. SolarEats | MIN THANT OO | minthantoo.com" />
       </Helmet>
 
       <UserProfileForm

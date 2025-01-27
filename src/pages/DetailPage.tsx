@@ -11,6 +11,7 @@ import { MenuItem as MenuItemType } from "@/types";
 import CheckoutButton from "@/components/DetailPage/CheckoutButton";
 import { UserFormData } from "@/components/shared/user-profile-form/UserProfileForm";
 import { useCreateCheckoutSession } from "@/api/OrderApi";
+import { Helmet } from "react-helmet-async";
 
 export type CartItem = {
     _id: string;
@@ -108,44 +109,51 @@ const DetailPage = () => {
     };
 
     return (
-        <div className="flex flex-col gap-10">
-            <AspectRatio ratio={16/ 5}>
-                <img 
-                    src={restaurant.imageUrl}
-                    className="rounded-md object-cover h-full w-full"
-                />
-            </AspectRatio>
-            <div className="grid md:grid-cols-[4fr_2fr] gap-5 md:px-32">
-                <div className="flex flex-col gap-4">
-                    <RestaurantInfo restaurant={restaurant} />
-                    <span className="text-2xl font-bold tracking-tight">Menu</span>
-                    {restaurant.menuItems.map((menuItem) => 
-                        <MenuItem 
-                            key={menuItem._id} 
-                            menuItem={menuItem} 
-                            addToCart={() => addToCart(menuItem)}
-                        />
-                    )}
-                </div>
+        <>
+            <Helmet>
+                <title>{restaurant.restaurantName} in {restaurant.city} | SolarEats | MIN THANT OO | minthantoo.com</title>
+                <meta name="description" content={`Order best ${restaurant.cuisines.slice(0,3).join(', ')} cuisines from ${restaurant.restaurantName} in ${restaurant.city}.  SolarEats | MIN THANT OO | minthantoo.com`} />
+            </Helmet>
 
-                <div>
-                    <Card>
-                        <OrderSummary 
-                            restaurant={restaurant} 
-                            cartItems={cartItems} 
-                            removeFromCart={removeFromCart} 
-                        />
-                        <CardFooter>
-                            <CheckoutButton 
-                                disabled={cartItems.length === 0} 
-                                onCheckout={onCheckout}
-                                isLoading={isCheckoutLoading}
+            <div className="flex flex-col gap-10">
+                <AspectRatio ratio={16/ 5}>
+                    <img 
+                        src={restaurant.imageUrl}
+                        className="rounded-md object-cover h-full w-full"
+                    />
+                </AspectRatio>
+                <div className="grid md:grid-cols-[4fr_2fr] gap-5 md:px-32">
+                    <div className="flex flex-col gap-4">
+                        <RestaurantInfo restaurant={restaurant} />
+                        <span className="text-2xl font-bold tracking-tight">Menu</span>
+                        {restaurant.menuItems.map((menuItem) => 
+                            <MenuItem 
+                                key={menuItem._id} 
+                                menuItem={menuItem} 
+                                addToCart={() => addToCart(menuItem)}
                             />
-                        </CardFooter>
-                    </Card>
+                        )}
+                    </div>
+
+                    <div>
+                        <Card>
+                            <OrderSummary 
+                                restaurant={restaurant} 
+                                cartItems={cartItems} 
+                                removeFromCart={removeFromCart} 
+                            />
+                            <CardFooter>
+                                <CheckoutButton 
+                                    disabled={cartItems.length === 0} 
+                                    onCheckout={onCheckout}
+                                    isLoading={isCheckoutLoading}
+                                />
+                            </CardFooter>
+                        </Card>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

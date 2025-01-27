@@ -21,11 +21,8 @@ const ManageRestaurantPage = () => {
   return (
     <>
       <Helmet>
-        <title>Manage Restaurant | SolarEats</title>
-        <meta 
-          name="description" 
-          content="Manage your restaurant settings and view orders"
-        />
+        <title>Manage ${restaurant?.restaurantName} | Restaurant Dashboard | SolarEats | MIN THANT OO | minthantoo.com</title>
+        <meta name="description" content="Manage your restaurant ${restaurant?.restaurantName} on SolarEats. Update settings, view orders, and track performance from your restaurant dashboard. SolarEats | MIN THANT OO | minthantoo.com" />
       </Helmet>
       
       <Tabs defaultValue="orders" className="space-y-6">

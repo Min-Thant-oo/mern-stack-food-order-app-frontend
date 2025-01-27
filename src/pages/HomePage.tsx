@@ -18,8 +18,8 @@ const HomePage = () => {
 
         <>
             <Helmet>
-                <title>Home | SolarEats</title>
-                <meta name="description" content="Welcome to SolarEats" />
+                <title>SolarEats | Order Food Delivery from Top Restaurants Near You | MIN THANT OO | minthantoo.com</title>
+                <meta name="description" content="Order food delivery from the best restaurants near you with SolarEats. Enjoy fast, reliable delivery and explore a variety of cuisines. Download the app or order online today! SolarEats | MIN THANT OO | minthantoo.com" />
             </Helmet>
             
             <div className='flex flex-col gap-12'>
