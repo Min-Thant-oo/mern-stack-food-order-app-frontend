@@ -1,11 +1,11 @@
 import { useSearchRestaurants } from '@/api/RestaurantApi';
-import CuisineFilter from '@/components/CuisineFilter';
-import PaginationSelector from '@/components/PaginationSelector';
-import SearchBar, { SearchForm } from '@/components/SearchBar';
-import SearchResultCard from '@/components/SearchResultCard';
-import SearchResultInfo from '@/components/SearchResultInfo';
-import SortOptionDropdown from '@/components/SortOptionDropdown';
-import Spinner from '@/components/Spinner';
+import CuisineFilter from '@/components/SearchPage/CuisineFilter';
+import PaginationSelector from '@/components/shared/PaginationSelector';
+import SearchBar, { SearchForm } from '@/components/shared/SearchBar';
+import SearchResultCard from '@/components/SearchPage/SearchResultCard';
+import SearchResultInfo from '@/components/SearchPage/SearchResultInfo';
+import SortOptionDropdown from '@/components/SearchPage/SortOptionDropdown';
+import Spinner from '@/components/shared/Spinner';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 

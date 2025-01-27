@@ -1,7 +1,7 @@
 import landing from '../assets/landing.png'
 import appDownload from '../assets/appDownload.png'
 import { Helmet } from 'react-helmet-async'
-import SearchBar, { SearchForm } from '@/components/SearchBar'
+import SearchBar, { SearchForm } from '@/components/shared/SearchBar'
 import { useNavigate } from 'react-router-dom'
 
 const HomePage = () => {

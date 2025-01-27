@@ -1,4 +1,4 @@
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/shared/Spinner";
 import { useAuth0 } from "@auth0/auth0-react"
 import { Navigate, Outlet } from "react-router-dom";
 

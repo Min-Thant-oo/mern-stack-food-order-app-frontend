@@ -6,8 +6,8 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { CircleUserRound, Menu } from "lucide-react"
-import { Separator } from "./ui/separator"
-import { Button } from "./ui/button"
+import { Separator } from "../ui/separator"
+import { Button } from "../ui/button"
 import { useAuth0 } from "@auth0/auth0-react"
 import MobileNavLinks from "./MobileNavLinks"
 import { useState } from "react"

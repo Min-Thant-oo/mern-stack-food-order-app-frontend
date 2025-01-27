@@ -1,11 +1,11 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from "react-router-dom";
-import { Button } from "./ui/button";
-import LoadingButton from "./LoadingButton";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
-import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
+import { Button } from "../ui/button";
+import LoadingButton from "../shared/LoadingButton";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
+import UserProfileForm from "@/components/shared/user-profile-form/UserProfileForm";
 import { useGetMyUser } from "@/api/MyUserApi";
-import { UserFormData } from '../forms/user-profile-form/UserProfileForm';
+import { UserFormData } from '../shared/user-profile-form/UserProfileForm';
 
 type Props = {
     onCheckout: (userFormData: UserFormData) => void;

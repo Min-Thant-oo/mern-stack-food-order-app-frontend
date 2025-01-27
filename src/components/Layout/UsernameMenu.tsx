@@ -1,10 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { CircleUserRound } from "lucide-react"
-import { DropdownMenuContent } from "./ui/dropdown-menu";
+import { DropdownMenuContent } from "../ui/dropdown-menu";
 import { Link, useLocation } from "react-router-dom";
-import { Separator } from "./ui/separator";
-import { Button } from "./ui/button";
+import { Separator } from "../ui/separator";
+import { Button } from "../ui/button";
 import { useState } from "react";
 
 const UsernameMenu = () => {

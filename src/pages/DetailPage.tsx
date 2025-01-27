@@ -1,15 +1,15 @@
 import { useGetRestaurant } from "@/api/RestaurantApi";
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/shared/Spinner";
 import { useParams } from "react-router-dom"
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import RestaurantInfo from "@/components/RestaurantInfo";
-import MenuItem from "@/components/MenuItem";
+import RestaurantInfo from "@/components/DetailPage/RestaurantInfo";
+import MenuItem from "@/components/DetailPage/MenuItem";
 import { useState } from "react";
-import OrderSummary from '@/components/OrderSummary';
+import OrderSummary from '@/components/DetailPage/OrderSummary';
 import { Card, CardFooter } from "@/components/ui/card";
 import { MenuItem as MenuItemType } from "@/types";
-import CheckoutButton from "@/components/CheckoutButton";
-import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
+import CheckoutButton from "@/components/DetailPage/CheckoutButton";
+import { UserFormData } from "@/components/shared/user-profile-form/UserProfileForm";
 import { useCreateCheckoutSession } from "@/api/OrderApi";
 
 export type CartItem = {

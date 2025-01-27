@@ -1,7 +1,7 @@
 import { useGetMyOrders } from "@/api/OrderApi";
-import OrderStatusDetail from "@/components/OrderStatusDetail";
-import OrderStatusHeader from "@/components/OrderStatusHeader";
-import Spinner from "@/components/Spinner";
+import OrderStatusDetail from "@/components/OrderStatusPage/OrderStatusDetail";
+import OrderStatusHeader from "@/components/OrderStatusPage/OrderStatusHeader";
+import Spinner from "@/components/shared/Spinner";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";

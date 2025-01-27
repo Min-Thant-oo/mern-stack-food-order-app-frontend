@@ -1,6 +1,6 @@
 import { useGetMyUser, useUpdateMyUser } from "@/api/MyUserApi";
-import Spinner from "@/components/Spinner";
-import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
+import Spinner from "@/components/shared/Spinner";
+import UserProfileForm from "@/components/shared/user-profile-form/UserProfileForm";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Helmet } from "react-helmet-async";
 

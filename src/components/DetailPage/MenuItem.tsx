@@ -1,5 +1,5 @@
-import type { MenuItem as MenuItemType } from "../types";   // because of name conflict
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import type { MenuItem as MenuItemType } from "../../types";   // because of name conflict
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 type Props = {
     menuItem: MenuItemType;
