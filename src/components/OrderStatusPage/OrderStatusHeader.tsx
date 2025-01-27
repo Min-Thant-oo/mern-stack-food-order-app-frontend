@@ -120,7 +120,6 @@ const OrderStatusHeader = ({ order }: Props) => {
             />
 
             <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-                <AlertDialogTrigger>Open</AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
