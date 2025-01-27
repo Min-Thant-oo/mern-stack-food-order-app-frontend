@@ -64,6 +64,35 @@ const DetailPage = () => {
         });
     };
 
+
+    
+const decrementCartItem = (menuItem: MenuItemType) => {
+    setCartItems((prevCartItems) => {
+        const existingCartItem = prevCartItems.find(
+            (cartItem) => cartItem._id === menuItem._id
+        );
+
+        if (!existingCartItem) return prevCartItems;
+
+        let updatedCartItems;
+
+        if (existingCartItem.quantity === 1) {
+            updatedCartItems = prevCartItems.filter(
+                (cartItem) => cartItem._id !== menuItem._id
+            );
+        } else {
+            updatedCartItems = prevCartItems.map((cartItem) =>
+                cartItem._id === menuItem._id
+                    ? { ...cartItem, quantity: cartItem.quantity - 1 }
+                    : cartItem
+            );
+        }
+
+        sessionStorage.setItem(`cartItems-${restaurantId}`, JSON.stringify(updatedCartItems));
+        return updatedCartItems;
+    });
+};
+
     const removeFromCart = (cartItem: CartItem) => {
         setCartItems((prevCartItems) => {
             const updatedCartItems = prevCartItems.filter(
@@ -126,13 +155,18 @@ const DetailPage = () => {
                     <div className="flex flex-col gap-4">
                         <RestaurantInfo restaurant={restaurant} />
                         <span className="text-2xl font-bold tracking-tight">Menu</span>
-                        {restaurant.menuItems.map((menuItem) => 
-                            <MenuItem 
-                                key={menuItem._id} 
-                                menuItem={menuItem} 
-                                addToCart={() => addToCart(menuItem)}
-                            />
-                        )}
+                        {restaurant.menuItems.map((menuItem) => {
+                            const cartItem = cartItems.find((item) => item._id === menuItem._id);
+                            return (
+                                <MenuItem 
+                                    key={menuItem._id} 
+                                    menuItem={menuItem}
+                                    quantity={cartItem?.quantity || 0}
+                                    onIncrement={() => addToCart(menuItem)}
+                                    onDecrement={() => decrementCartItem(menuItem)}
+                                />
+                            );
+                        })}
                     </div>
 
                     <div>
