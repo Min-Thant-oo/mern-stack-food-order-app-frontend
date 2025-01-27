@@ -39,7 +39,7 @@ export type RestaurantSearchResponse = {
     };
 };
 
-export type OrderStatus = "placed" | "paid" | "inProgress" | "outForDelivery" | "delivered" | "cancelled";
+export type OrderStatus = "unpaid" | "paid" | "inProgress" | "outForDelivery" | "delivered" | "cancelled";
 
 export type Order = {
     _id: string;

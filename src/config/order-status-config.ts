@@ -9,13 +9,13 @@ type OrderStatusInfo = {
 };
 
 export const ORDER_STATUS: OrderStatusInfo[] = [
-  { 
-    label: "Placed", 
-    value: "placed", 
-    progressValue: 0, 
-    color: "bg-gray-300",
-    textColor: "text-black",
-  },
+  // { 
+  //   label: "Placed", 
+  //   value: "placed", 
+  //   progressValue: 0, 
+  //   color: "bg-gray-300",
+  //   textColor: "text-black",
+  // },
   {
     label: "Awaiting Restaurant Confirmation",
     value: "paid",

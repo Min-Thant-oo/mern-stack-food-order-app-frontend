@@ -6,16 +6,24 @@ type Props = {
 }
 
 const OrdersTab = ({ orders }: Props) => {
-    const activeOrders = orders.filter(order => !['delivered', 'cancelled'].includes(order.status));
+    const activeOrders = orders.filter(order => !['unpaid', 'delivered', 'cancelled'].includes(order.status));    
     const pastOrders = orders.filter(order => ['delivered', 'cancelled'].includes(order.status));
   
-    if (!orders.length) {
+    if (!activeOrders.length && !pastOrders.length) {
         return (
             <div className="mt-4">
                 <h2 className="ml-2 font-semibold">You don't have any orders yet.</h2>
             </div>
         );
     }
+  
+    // if (isFetching) {
+    //     return (
+    //         <div className="mt-4">
+    //             <h2 className="ml-2 font-semibold">Checking server for orders.</h2>
+    //         </div>
+    //     );
+    // }
   
     return (
         <div className="space-y-8">

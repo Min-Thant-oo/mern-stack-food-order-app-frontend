@@ -8,18 +8,22 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 const OrderStatusPage = () => {
-    const { orders, isLoading } = useGetMyOrders();
+    const { orders = [], isLoading } = useGetMyOrders();
 
     if (isLoading) {
         return <Spinner />;
     }
 
-    if (!orders || orders.length === 0) {
-        return "No orders found";
-    }
+    const activeOrders = orders.filter(order => !['unpaid', 'delivered', 'cancelled'].includes(order.status));    
+    const pastOrders = orders.filter(order => ['delivered', 'cancelled'].includes(order.status));
 
-    const activeOrders = orders.filter((order) => order.status !== 'delivered' && order.status !== 'cancelled');
-    const pastOrders = orders.filter((order) => order.status === 'delivered' || order.status === 'cancelled');
+    if (!activeOrders.length && !pastOrders.length) {
+        return (
+            <div className="mt-4">
+                <h2 className="ml-2 font-semibold">You don't have any orders yet.</h2>
+            </div>
+        );
+    }
 
     return (
         <>
