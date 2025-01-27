@@ -29,17 +29,16 @@ export const useCreateMyRestaurant = () => {
   const {
     mutate: createRestaurant,
     isLoading,
-    isSuccess,
-    error,
-  } = useMutation(createMyRestaurantRequest);
-
-  if (isSuccess) {
-    toast.success("Restaurant created!");
-  }
-
-  if (error) {
-    toast.error("Unable to update restaurant");
-  }
+  } = useMutation({
+    mutationFn: createMyRestaurantRequest,
+    onSuccess: () => {
+      toast.success("Restaurant Created");
+    },
+    onError: () => {
+      toast.error("Unable to create restaurant");
+    }
+  });
+  
 
   return { createRestaurant, isLoading };
 };
@@ -98,6 +97,7 @@ export const useUpdateMyRestaurant = () => {
 
   const {
     mutate: updateRestaurant,
+    reset: updateReset,
     isLoading,
   } = useMutation({
     mutationFn: updateRestaurantRequest,
@@ -109,15 +109,7 @@ export const useUpdateMyRestaurant = () => {
     }
   });
 
-  // if (isSuccess) {
-  //   toast.success("Restaurant Updated");
-  // }
-
-  // if (error) {
-  //   toast.error("Unable to update restaurant");
-  // }
-
-  return { updateRestaurant, isLoading};
+  return { updateRestaurant, isLoading, updateReset};
 };
 
 export const useGetMyRestaurantOrders = () => {
@@ -140,15 +132,16 @@ export const useGetMyRestaurantOrders = () => {
     return response.json();
   };
 
-  const { data: orders, isLoading } = useQuery(
+  const { data: orders, isLoading, isFetching } = useQuery(
     "fetchMyRestaurantOrders",
     getMyRestaurantOrdersRequest,
     {
       refetchInterval: 3000,
+      retry: 1,
     }
   );
 
-  return { orders, isLoading };
+  return { orders, isLoading, isFetching };
 };
 
 type UpdateOrderStatusRequest = {
@@ -184,12 +177,18 @@ export const useUpdateMyRestaurantOrder = () => {
   const {
     mutateAsync: updateRestaurantStatus,
     isLoading,
-    isError,
-    isSuccess,
-    reset,
-  } = useMutation(updateMyRestaurantOrder);
+  } = useMutation({
+    mutationFn: updateMyRestaurantOrder,
+    onSuccess: () => {
+      toast.success("Order status updated");
+    },
+    onError: () => {
+      toast.error("Unable to update order status");
+    }
 
-  return { updateRestaurantStatus, isLoading, isError, isSuccess, reset };
+  });
+
+  return { updateRestaurantStatus, isLoading };
 };
 
 // type CancelMyRestaurantOrderRequest = {

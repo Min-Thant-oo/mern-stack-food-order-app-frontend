@@ -3,17 +3,19 @@ import OrdersTab from "@/components/ManageRestaurantPage/OrdersTab";
 import Spinner from "@/components/shared/Spinner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ManageRestaurantForm from "@/components/ManageRestaurantPage/manage-restaurant-form/ManageRestaurantForm";
-import { Helmet } from "react-helmet-async";;
+import { Helmet } from "react-helmet-async";
+;
 
 const ManageRestaurantPage = () => {
   const { createRestaurant, isLoading: isCreateLoading } = useCreateMyRestaurant();
-  const { restaurant, isLoading: isGetRestaurantLoading } = useGetMyRestaurant();
+  const { restaurant } = useGetMyRestaurant();
   const { updateRestaurant, isLoading: isUpdateLoading } = useUpdateMyRestaurant();
-  const { orders, isLoading: isGetRestaurantOrderLoading } = useGetMyRestaurantOrders();
+  const { orders } = useGetMyRestaurantOrders();
 
-  if (isGetRestaurantLoading || isGetRestaurantOrderLoading) {
-    return <Spinner />;
-  }
+  // this is 'isLoading' from useGetMyRestaurant and 'isloading' from useGetMyRestaurantOrders
+  // if (isGetRestaurantLoading || (isGetRestaurantOrderLoading)) {
+  //   return <Spinner />;
+  // }
 
   const handleSave = restaurant ? updateRestaurant : createRestaurant;
   const isLoading = isCreateLoading || isUpdateLoading;
@@ -21,7 +23,7 @@ const ManageRestaurantPage = () => {
   return (
     <>
       <Helmet>
-        <title>Manage ${restaurant?.restaurantName} | Restaurant Dashboard | SolarEats | MIN THANT OO | minthantoo.com</title>
+        <title>Manage ${restaurant ? restaurant.restaurantName : 'restaurant'} | Restaurant Dashboard | SolarEats | MIN THANT OO | minthantoo.com</title>
         <meta name="description" content="Manage your restaurant ${restaurant?.restaurantName} on SolarEats. Update settings, view orders, and track performance from your restaurant dashboard. SolarEats | MIN THANT OO | minthantoo.com" />
       </Helmet>
       

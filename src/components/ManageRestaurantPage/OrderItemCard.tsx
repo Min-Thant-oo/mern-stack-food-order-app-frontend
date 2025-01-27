@@ -13,7 +13,6 @@ import {
 import { ORDER_STATUS } from "@/config/order-status-config";
 import { useUpdateMyRestaurantOrder } from "@/api/MyRestaurantApi";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { Utensils } from "lucide-react";
 
 type Props = {
@@ -21,26 +20,12 @@ type Props = {
 }
 
 const OrderItemCard = ({ order }: Props) => {
-    const { updateRestaurantStatus, isLoading, isSuccess, isError, reset } = useUpdateMyRestaurantOrder();
+    const { updateRestaurantStatus, isLoading } = useUpdateMyRestaurantOrder();
     const [status, setStatus] = useState<OrderStatus>(order.status);
 
     useEffect(() => {
         setStatus(order.status);
     }, [order.status]);
-
-    useEffect(() => {
-        if(isSuccess) {
-            toast.success("Order updated")
-        };
-        reset();    // Reset the mutation state after showing the toast
-    }, [isSuccess, reset]);
-
-    useEffect(() => {
-        if(isError) {
-            toast.error("Unable to update order")
-        }
-        reset();
-    }, [isError, reset]);
 
     const handleStatusChange = async (newStatus: OrderStatus) => {
         await updateRestaurantStatus({
