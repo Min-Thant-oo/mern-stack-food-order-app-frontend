@@ -7,6 +7,7 @@ import Auth0ProviderWithNavigate from './auth/Auth0ProviderWithNavigate';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from 'sonner';
 import { HelmetProvider } from 'react-helmet-async';
+import { Analytics } from '@vercel/analytics/react';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,5 +29,6 @@ createRoot(document.getElementById('root')!).render(
         </QueryClientProvider>
       </Router>
     </HelmetProvider>
+    <Analytics />
   </StrictMode>,
 )
