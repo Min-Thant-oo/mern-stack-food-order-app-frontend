@@ -84,8 +84,8 @@ const SearchPage = () => {
   return (
     <>
       <Helmet>
-        <title>Best Restaurants in ${city} | SolarEats | MIN THANT OO | minthantoo.com</title>
-        <meta name="description" content="Discover the best restaurants in ${city} on SolarEats. Read reviews, explore menus, and order food delivery from top-rated local eateries. | MIN THANT OO | minthantoo.com" />      
+        <title>Best Restaurants in {city} | SolarEats | MIN THANT OO | minthantoo.com</title>
+        <meta name="description" content="Discover the best restaurants in {city} on SolarEats. Read reviews, explore menus, and order food delivery from top-rated local eateries. | MIN THANT OO | minthantoo.com" />      
       </Helmet>
 
       <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
