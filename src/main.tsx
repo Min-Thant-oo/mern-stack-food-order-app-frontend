@@ -8,6 +8,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from 'sonner';
 import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from '@vercel/analytics/react';
+import ReactGA from 'react-ga4';
+
+ReactGA.initialize(import.meta.env.VITE_GA_MEASUREMENT_ID);
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes, useLocation } from "react-router-dom"
 import Layout from "./layouts/layout"
 import HomePage from "./pages/HomePage"
 import AuthCallbackPage from "./pages/AuthCallbackPage"
@@ -8,8 +8,18 @@ import ManageRestaurantPage from "./pages/ManageRestaurantPage"
 import SearchPage from "./pages/SearchPage"
 import DetailPage from "./pages/DetailPage"
 import OrderStatusPage from "./pages/OrderStatusPage"
+import ReactGA from 'react-ga4';
+import { useEffect } from "react"
 
 export const AppRoutes = () => {
+
+    const location = useLocation();
+
+    useEffect(() => {
+        // Send pageview to GA
+        ReactGA.send({ hitType: "pageview", page: location.pathname });
+    }, [location]);
+
     return (
         <Routes>
             <Route 
