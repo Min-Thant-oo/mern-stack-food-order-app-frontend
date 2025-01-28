@@ -35,7 +35,7 @@ const OrderStatusPage = () => {
             <div className="gap-10">
                 {activeOrders.length > 0 && (
                 <>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">{activeOrders.length} active {activeOrders?.length === 1 ? 'order' : 'orders'}</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">{activeOrders.length} active {activeOrders?.length === 1 ? 'order' : 'orders'}</h2>
                     {activeOrders.map((order) => (
                         <div key={order._id} className="space-y-10 mb-6 bg-gray-100 p-5 md:p-10 rounded-lg">
                             <OrderStatusHeader order={order} />
@@ -61,7 +61,7 @@ const OrderStatusPage = () => {
 
                 {pastOrders.length > 0 && (
                 <>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">{pastOrders.length} past {pastOrders?.length === 1 ? 'order' : 'orders'}</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">{pastOrders.length} past {pastOrders?.length === 1 ? 'order' : 'orders'}</h2>
                     {pastOrders.map((order) => (
                         <div key={order._id} className='space-y-10 mb-6 p-10 rounded-lg bg-gray-200 hover:bg-gray-100 opacity-50 hover:opacity-100'>
                             <OrderStatusHeader order={order} />
