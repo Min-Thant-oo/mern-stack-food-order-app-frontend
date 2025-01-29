@@ -1,50 +1,84 @@
-# React + TypeScript + Vite
+# MERN Stack Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A TypeScript-based frontend application built with React + Vite, featuring Auth0 authentication integration.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js (22.10.5)
+- npm or yarn
+- Auth0 account and application setup
+- Google Analytics 4 account
 
-## Expanding the ESLint configuration
+## Environment Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Create a `.env` file in the root directory
+2. Add the following environment variables:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```env
+VITE_AUTH0_DOMAIN=your_auth0_domain
+VITE_AUTH0_CLIENT_ID=your_auth0_client_id
+VITE_AUTH0_AUDIENCE=your_auth0_audience
+VITE_GA_MEASUREMENT_ID=your_google_analytics_id
+VITE_API_BASE_URL=http://localhost:7000
+VITE_AUTH0_CALLBACK_URI=http://localhost:5173
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Installation
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+1. Clone the repository:
+```bash
+git clone https://github.com/Min-Thant-oo/mern-stack-food-order-app-frontend.git [folder-name]
+cd [repository-name]
 ```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+The application will start running at `http://localhost:5173`
+
+## Configuration
+
+### Auth0 Setup
+1. Create an Auth0 application in your Auth0 dashboard
+2. Set the callback URL to `http://localhost:5173`
+3. Copy your Auth0 domain and client ID to the `.env` file
+4. For `VITE_AUTH0_AUDIENCE`:
+   - Go to your Auth0 dashboard
+   - Navigate to "APIs" section
+   - Create a new API or select existing one
+   - The "API Identifier" is your audience value
+   - You can check backend installation steps [here](https://github.com/Min-Thant-oo/mern-stack-food-order-app-backend)
+
+### Google Analytics Setup
+1. Go to Google Analytics dashboard (https://analytics.google.com)
+2. Create a new property if you haven't already
+3. During setup, select "Web" as your platform
+4. Select "Show advanced options" and enable "Create a Universal Analytics property"
+5. Once created, go to Admin → Property Settings
+6. Your `VITE_GA_MEASUREMENT_ID` will be in the format "G-XXXXXXXXXX"
+
+## Tech Stack
+
+- React + Vite
+- TypeScript
+- Auth0 Authentication
+- Google Analytics integration
+
+Check out live demo [here](https://solareats.minthantoo.com). 
+
+Sign in using the following credentials,
+
+email - test@test.com
+
+password - Password@1
